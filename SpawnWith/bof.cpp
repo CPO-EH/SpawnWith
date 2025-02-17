@@ -68,7 +68,6 @@ void go(char* args, int len) {
     memset((unsigned char*) & si, 0, sizeof(si));
     memset((unsigned char*) & pi, 0, sizeof(pi));
 
-
     // unpack target pid
     BeaconDataParse(&parser, args, len);
     pid = BeaconDataInt(&parser);
