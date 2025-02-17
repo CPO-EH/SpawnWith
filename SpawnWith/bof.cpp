@@ -21,6 +21,9 @@ extern "C" {
 #include "beacon.h"
 
     // DFR functions
+    DFR(MSVCRT, memset)
+    #define memset MSVCRT$memset
+
     DFR(KERNEL32, GetLastError);
     #define GetLastError KERNEL32$GetLastError
 
@@ -59,9 +62,13 @@ void go(char* args, int len) {
     HANDLE  hToken    = 0;
     HANDLE  hDupToken = 0;
 
-    STARTUPINFOW si        = { 0 };
-    PROCESS_INFORMATION pi = { 0 };
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
     
+    memset((unsigned char*) & si, 0, sizeof(si));
+    memset((unsigned char*) & pi, 0, sizeof(pi));
+
+
     // unpack target pid
     BeaconDataParse(&parser, args, len);
     pid = BeaconDataInt(&parser);
